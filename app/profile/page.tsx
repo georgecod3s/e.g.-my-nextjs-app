@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { updateProfile } from "./actions";
+import { updateProfile, uploadAvatar } from "./actions";
 
 export default async function ProfilePage() {
     const supabase = await createClient();
@@ -15,7 +15,7 @@ export default async function ProfilePage() {
 
     const { data: profile } = await supabase
         .from("profiles")
-        .select("first_name, last_name")
+        .select("first_name, last_name, avatar_url")
         .eq("id", user.id)
         .single();
 
@@ -24,9 +24,23 @@ export default async function ProfilePage() {
             <div className="w-full max-w-md">
                 <h1 className="text-3xl font-bold">Profile</h1>
 
+                {profile?.avatar_url && (
+                    <img
+                        src={profile.avatar_url}
+                        alt="Profile photo"
+                        className="mt-6 h-24 w-24 rounded-full object-cover"
+                    />
+                )}
+
                 <p className="mt-4">
                     Signed in as {user.email}
                 </p>
+
+                {(!profile?.first_name || !profile?.last_name) && (
+                    <div className="mt-4 rounded border border-yellow-400 bg-yellow-50 p-3 text-yellow-900">
+                        Welcome! Please add your first and last name to finish setting up your profile.
+                    </div>
+                )}
 
                 <form action={updateProfile} className="mt-6 space-y-4">
                     <div>
@@ -68,6 +82,32 @@ export default async function ProfilePage() {
                         className="rounded bg-black px-4 py-2 text-white"
                     >
                         Save Profile
+                    </button>
+                </form>
+
+                <form action={uploadAvatar} className="mt-8 space-y-4">
+                    <div>
+                        <label
+                            htmlFor="avatar"
+                            className="block font-semibold"
+                        >
+                            Profile Photo
+                        </label>
+
+                        <input
+                            id="avatar"
+                            name="avatar"
+                            type="file"
+                            accept="image/*"
+                            className="mt-2 w-full"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="rounded bg-black px-4 py-2 text-white"
+                    >
+                        Upload Photo
                     </button>
                 </form>
             </div>
