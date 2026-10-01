@@ -7,18 +7,18 @@ export default async function HumorPage() {
         .order("id", { ascending: true });
 
     if (error) {
-        return <main className="p-8">Error loading humor: {error.message}</main>;
+        return <main className="mx-auto w-full max-w-3xl flex-1 p-8">Error loading humor: {error.message}</main>;
     }
 
     return (
-        <main className="p-8">
+        <main className="mx-auto w-full max-w-3xl flex-1 p-8">
             <h1 className="mb-6 text-3xl font-bold">Humor Class</h1>
 
             <div className="space-y-4">
                 {humor?.map((item) => (
                     <div
                         key={item.id}
-                        className="rounded-lg border border-gray-300 p-4"
+                        className="glass rounded-2xl p-4"
                     >
                         <p>{item.humor}</p>
                     </div>

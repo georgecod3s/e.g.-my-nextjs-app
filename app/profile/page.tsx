@@ -20,15 +20,15 @@ export default async function ProfilePage() {
         .single();
 
     return (
-        <main className="flex min-h-screen items-center justify-center">
-            <div className="w-full max-w-md">
-                <h1 className="text-3xl font-bold">Profile</h1>
+        <main className="flex flex-1 items-center justify-center px-4 py-12">
+            <div className="glass w-full max-w-md rounded-3xl p-8">
+                <h1 className="font-display text-4xl font-black"><span className="text-gradient">Profile</span></h1>
 
                 {profile?.avatar_url && (
                     <img
                         src={profile.avatar_url}
                         alt="Profile photo"
-                        className="mt-6 h-24 w-24 rounded-full object-cover"
+                        className="mt-6 h-24 w-24 rounded-full object-cover ring-4 ring-fuchsia-400/60"
                     />
                 )}
 
@@ -37,7 +37,7 @@ export default async function ProfilePage() {
                 </p>
 
                 {(!profile?.first_name || !profile?.last_name) && (
-                    <div className="mt-4 rounded border border-yellow-400 bg-yellow-50 p-3 text-yellow-900">
+                    <div className="mt-4 rounded border border-amber-400/50 bg-amber-400/10 p-3 text-amber-100">
                         Welcome! Please add your first and last name to finish setting up your profile.
                     </div>
                 )}
@@ -56,7 +56,7 @@ export default async function ProfilePage() {
                             name="first_name"
                             type="text"
                             defaultValue={profile?.first_name ?? ""}
-                            className="mt-1 w-full rounded border p-2"
+                            className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 p-2.5 outline-none focus:border-fuchsia-400"
                         />
                     </div>
 
@@ -73,13 +73,13 @@ export default async function ProfilePage() {
                             name="last_name"
                             type="text"
                             defaultValue={profile?.last_name ?? ""}
-                            className="mt-1 w-full rounded border p-2"
+                            className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 p-2.5 outline-none focus:border-fuchsia-400"
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="rounded bg-black px-4 py-2 text-white"
+                        className="rounded-2xl bg-white px-5 py-2.5 font-bold text-black transition hover:scale-[1.02]"
                     >
                         Save Profile
                     </button>
@@ -105,7 +105,7 @@ export default async function ProfilePage() {
 
                     <button
                         type="submit"
-                        className="rounded bg-black px-4 py-2 text-white"
+                        className="rounded-2xl bg-white px-5 py-2.5 font-bold text-black transition hover:scale-[1.02]"
                     >
                         Upload Photo
                     </button>
